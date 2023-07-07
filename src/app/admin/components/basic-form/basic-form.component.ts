@@ -11,7 +11,12 @@ import { FormControl } from "@angular/forms";
 export class BasicFormComponent implements OnInit {
 
   // Crear un form control
-  nameField = new FormControl('Soy un control');
+  nameField = new FormControl('');
+  emailField = new FormControl('');
+  phoneField = new FormControl('');
+  colorField = new FormControl('#000');
+  dateField = new FormControl('');
+  ageField = new FormControl(12);
 
   ngOnInit() {
     // Observable
