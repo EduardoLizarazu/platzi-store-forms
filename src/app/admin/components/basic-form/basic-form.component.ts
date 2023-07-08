@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormControl, Validators } from "@angular/forms";
-// Validators: Es un conjunto de validadores normales para forms
-// Require: campo obligatorio
+import { FormControl, Validators, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-basic-form',
@@ -11,26 +9,20 @@ import { FormControl, Validators } from "@angular/forms";
 })
 export class BasicFormComponent implements OnInit {
 
-  // Form Control
-  // 1param: valor por defecto
-  // 2param: validacion sync (una directa o varias[array])
-  // 3param: validacion async
+  form = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+    email : new FormControl(''),
+    phone: new FormControl(''),
+    color: new FormControl('#000'),
+    date: new FormControl(''),
+    age: new FormControl(12),
+    category: new FormControl('category-2'),
+    tag: new FormControl(''),
+    agree: new FormControl(false),
+    gender : new FormControl(''),
+    zone: new FormControl('')
 
-  nameField = new FormControl('', [Validators.required, Validators.maxLength(10)]);
-  emailField = new FormControl('');
-  phoneField = new FormControl('');
-  colorField = new FormControl('#000');
-  dateField = new FormControl('');
-  ageField = new FormControl(12);
-
-  categoryField = new FormControl('category-2');
-  tagField = new FormControl('');
-
-  agreeField = new FormControl(false);
-  genderField = new FormControl('');
-  zoneField = new FormControl('');
-
-
+  });
 
   ngOnInit() {
     // Observable
@@ -43,6 +35,50 @@ export class BasicFormComponent implements OnInit {
   getNameValue() {
     // Capturar el valor del form control en el instante
     console.log(this.nameField.value);
+  }
+
+  // Submit del formulario y validacion
+  save(event: Event){
+    if(this.form.valid){
+      console.log(this.form.value);
+    }else{
+      console.log("Errors has ocurrs!!!!");
+    }
+  }
+
+  // Obtener el validador de un form group
+  get nameField() {
+    return this.form.get('name');
+  }
+  get emailField() {
+    return this.form.get('email');
+  }
+  get phoneField() {
+    return this.form.get('phone');
+  }
+  get colorField() {
+    return this.form.get('color');
+  }
+  get dateField() {
+    return this.form.get('date');
+  }
+  get ageField() {
+    return this.form.get('age');
+  }
+  get categoryField() {
+    return this.form.get('category');
+  }
+  get tagField() {
+    return this.form.get('tag');
+  }
+  get agreeField() {
+    return this.form.get('agree');
+  }
+  get genderField() {
+    return this.form.get('gender');
+  }
+  get zoneField() {
+    return this.form.get('zone');
   }
 
   // Para evitar repetir codigo de validacion en el html
