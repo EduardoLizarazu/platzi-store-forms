@@ -24,6 +24,13 @@ export class BasicFormComponent implements OnInit {
   categoryField = new FormControl('category-2');
   tagField = new FormControl('');
 
+  // Checkbox & Radio
+  agreeField = new FormControl(false);
+  genderField = new FormControl('');
+  zoneField = new FormControl('');
+
+
+
   ngOnInit() {
     // Observable
     // Suscribirse a los cambios del form control en tiempo real

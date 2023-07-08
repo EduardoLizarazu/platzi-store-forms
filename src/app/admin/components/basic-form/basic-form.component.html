@@ -50,3 +50,33 @@
     <option value="tag-3">Tag 3</option>
   </select>
 </p>
+
+<!-- Checkbox & Radio -->
+<p>
+  Agree: {{ agreeField.value }}
+  <input type="checkbox" [formControl]="agreeField" />
+</p>
+<!-- Para evitar que los inputs se fucionen tiene que agruparse por name -->
+<p>
+  Gender: {{ genderField.value }}
+  <label>
+    <input name="gender" type="radio" value="male" [formControl]="genderField" />
+    Male
+  </label>
+  <label>
+    <input name="gender" type="radio" value="female" [formControl]="genderField" />
+    Female
+  </label>
+</p>
+
+<p>
+  Gender: {{ zoneField.value }}
+  <label>
+    <input name="zone" type="radio" value="zone-1" [formControl]="zoneField" />
+    Zone 1
+  </label>
+  <label>
+    <input name="zone" type="radio" value="zone-2" [formControl]="zoneField" />
+    Zone 2
+  </label>
+</p>
