@@ -18,6 +18,12 @@ export class BasicFormComponent implements OnInit {
   dateField = new FormControl('');
   ageField = new FormControl(12);
 
+  // Select Input
+  // categoryField = new FormControl('');
+  // Valor por defecto, tiene que ser el mismo que el value option
+  categoryField = new FormControl('category-2');
+  tagField = new FormControl('');
+
   ngOnInit() {
     // Observable
     // Suscribirse a los cambios del form control en tiempo real
