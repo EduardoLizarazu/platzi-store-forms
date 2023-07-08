@@ -45,4 +45,12 @@ export class BasicFormComponent implements OnInit {
     console.log(this.nameField.value);
   }
 
+  // Para evitar repetir codigo de validacion en el html
+  get isNameFieldValid() {
+    return this.nameField.touched && this.nameField.valid;
+  }
+  get isNameFieldInvalid() {
+    return this.nameField.touched && this.nameField.invalid;
+  }
+
 }
