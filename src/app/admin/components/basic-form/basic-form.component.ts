@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormControl } from "@angular/forms";
-
+import { FormControl, Validators } from "@angular/forms";
+// Validators: Es un conjunto de validadores normales para forms
+// Require: campo obligatorio
 
 @Component({
   selector: 'app-basic-form',
@@ -10,21 +11,21 @@ import { FormControl } from "@angular/forms";
 })
 export class BasicFormComponent implements OnInit {
 
-  // Crear un form control
-  nameField = new FormControl('');
+  // Form Control
+  // 1param: valor por defecto
+  // 2param: validacion sync (una directa o varias[array])
+  // 3param: validacion async
+
+  nameField = new FormControl('', [Validators.required, Validators.maxLength(10)]);
   emailField = new FormControl('');
   phoneField = new FormControl('');
   colorField = new FormControl('#000');
   dateField = new FormControl('');
   ageField = new FormControl(12);
 
-  // Select Input
-  // categoryField = new FormControl('');
-  // Valor por defecto, tiene que ser el mismo que el value option
   categoryField = new FormControl('category-2');
   tagField = new FormControl('');
 
-  // Checkbox & Radio
   agreeField = new FormControl(false);
   genderField = new FormControl('');
   zoneField = new FormControl('');
