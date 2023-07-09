@@ -24,13 +24,13 @@ export class BasicFormComponent implements OnInit {
   ngOnInit() {
     // Observable
     // Suscribirse a los cambios del form control en tiempo real
-    this.nameField.valueChanges.subscribe(value => {
-      console.log(value);
-    });
-    // Suscribirse a los cambios del form control en tiempo real
-    this.form.valueChanges.subscribe(value => {
-      console.log(value);
-    });
+    // this.nameField.valueChanges.subscribe(value => {
+    //   console.log(value);
+    // });
+    // // Suscribirse a los cambios del form control en tiempo real
+    // this.form.valueChanges.subscribe(value => {
+    //   console.log(value);
+    // });
   }
 
   getNameValue() {
@@ -50,24 +50,32 @@ export class BasicFormComponent implements OnInit {
 
   private buildForm() {
     // FormGroup Reactive Form y sus validaciones
+    // Manejando multiples forms groups
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]],
-      email : ['', [Validators.required, Validators.email]],
+      fullName: this.formBuilder.group({
+        name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]],
+        last: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]]
+      }),
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
-      color: ['#000'],
+      color: ['#000000'],
       date: [''],
-      age: [18, [Validators.required, Validators.min(18), Validators.max(65)]],
-      category: ['category-2'],
+      age: [18, [Validators.required, Validators.min(18), Validators.max(100)]],
+      category: [''],
       tag: [''],
       agree: [false, [Validators.requiredTrue]],
-      gender : [''],
-      zone: ['']
+      gender: [''],
+      zone: [''],
     });
   }
 
   // Obtener el validador de un form group
   get nameField() {
-    return this.form.get('name');
+    // return this.form.get('fullName').get('name'); // same as below
+    return this.form.get('fullName.name');
+  }
+  get lastField() {
+    return this.form.get('fullName.last');
   }
   get emailField() {
     return this.form.get('email');
