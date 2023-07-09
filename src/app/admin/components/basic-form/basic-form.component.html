@@ -10,10 +10,13 @@ los campos -->
   </p>
   <div class="messages" [class.active]="isNameFieldInvalid">
     <p>
-      <strong *ngIf="nameField.touched && nameField.hasError('required')">Este campo es requerido</strong>
+      <strong *ngIf="nameField.hasError('required')">Este campo es requerido</strong>
     </p>
     <p>
-      <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">debe tener maximo 10 c</strong>
+      <strong *ngIf="nameField.hasError('maxlength')">debe tener maximo 10 c</strong>
+    </p>
+    <p>
+      <strong *ngIf="nameField.hasError('pattern')">No debe tener caracteres especiales</strong>
     </p>
   </div>
 
@@ -21,6 +24,19 @@ los campos -->
     Email: {{ emailField.value }}
     <input type="email" formControlName="email" />
   </p>
+  <div class="messages" [class.active]="emailField.touched && emailField.invalid">
+    <p>
+      <strong *ngIf="emailField.hasError('required')">
+        Este campo es requerido
+      </strong>
+    </p>
+    <!-- Como el touched los estoy haciendo arriba, aqui ya no es necesario -->
+    <p>
+      <strong *ngIf="emailField.hasError('email')">
+        Este no es un email valido
+      </strong>
+    </p>
+  </div>
 
   <p>
     Phone: {{ phoneField.value }}
@@ -40,10 +56,29 @@ los campos -->
     Date: {{ dateField.value }}
     <input type="date" formControlName="date" />
   </p>
+
   <p>
-    Phone: {{ ageField.value }}
+    Age: {{ ageField.value }}
     <input type="number" formControlName="age" />
   </p>
+  <div class="messages" [class.active]="ageField.touched && ageField.invalid">
+    <p>
+      <strong *ngIf="ageField.hasError('required')">
+        Este campo es requerido
+      </strong>
+    </p>
+    <p>
+      <strong *ngIf="ageField.hasError('min')">
+        Debe ser mayor de edad
+      </strong>
+    </p>
+    <p>
+      <strong *ngIf="ageField.hasError('max')">
+        Debe ser menor a 65 anos
+      </strong>
+    </p>
+  </div>
+
   <p>
     Category: {{ categoryField.value }}
     <select formControlName="category">
@@ -62,10 +97,17 @@ los campos -->
       <option value="tag-4">Tag 4</option>
     </select>
   </p>
+
   <p>
     Agree: {{ agreeField.value }}
     <input type="checkbox" formControlName="agree" />
   </p>
+  <div class="messages" [class.active]="agreeField.touched && agreeField.invalid">
+    <p>
+      <strong *ngIf="agreeField.hasError('requiredtrue')">Tienes que aceptar los termininos y condiciones</strong>
+    </p>
+  </div>
+
   <p>
     Gender: {{ genderField.value }}
     <label>

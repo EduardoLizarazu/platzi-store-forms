@@ -49,17 +49,17 @@ export class BasicFormComponent implements OnInit {
   }
 
   private buildForm() {
-    // FormGroup Reactive Form
+    // FormGroup Reactive Form y sus validaciones
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(10)]],
-      email : [''],
+      name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]],
+      email : ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       color: ['#000'],
       date: [''],
-      age: [12],
+      age: [18, [Validators.required, Validators.min(18), Validators.max(65)]],
       category: ['category-2'],
       tag: [''],
-      agree: [false],
+      agree: [false, [Validators.requiredTrue]],
       gender : [''],
       zone: ['']
     });
