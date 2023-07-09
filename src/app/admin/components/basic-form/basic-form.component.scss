@@ -16,3 +16,11 @@ input{
       color: darkred;
   }
 }
+
+form {
+  padding: 25px;
+  mat-form-field {
+    width: 100%;
+  }
+}
+
