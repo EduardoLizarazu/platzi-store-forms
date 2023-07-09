@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { FormControl, Validators, FormGroup, FormBuilder } from "@angular/forms";
+
+// FormBuilder es un servicio por lo que hay que inyectarlo en el contructor
 
 @Component({
   selector: 'app-basic-form',
@@ -9,25 +11,24 @@ import { FormControl, Validators, FormGroup } from "@angular/forms";
 })
 export class BasicFormComponent implements OnInit {
 
-  form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    email : new FormControl(''),
-    phone: new FormControl(''),
-    color: new FormControl('#000'),
-    date: new FormControl(''),
-    age: new FormControl(12),
-    category: new FormControl('category-2'),
-    tag: new FormControl(''),
-    agree: new FormControl(false),
-    gender : new FormControl(''),
-    zone: new FormControl('')
+  // Tipamos el form
+  form: FormGroup;
 
-  });
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
+    // Inicializar el form
+    this.buildForm();
+  }
 
   ngOnInit() {
     // Observable
     // Suscribirse a los cambios del form control en tiempo real
     this.nameField.valueChanges.subscribe(value => {
+      console.log(value);
+    });
+    // Suscribirse a los cambios del form control en tiempo real
+    this.form.valueChanges.subscribe(value => {
       console.log(value);
     });
   }
@@ -42,8 +43,26 @@ export class BasicFormComponent implements OnInit {
     if(this.form.valid){
       console.log(this.form.value);
     }else{
-      console.log("Errors has ocurrs!!!!");
+      // Marcar todos los campos como tocados (ver errores)
+      this.form.markAllAsTouched();
     }
+  }
+
+  private buildForm() {
+    // FormGroup Reactive Form
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(10)]],
+      email : [''],
+      phone: ['', Validators.required],
+      color: ['#000'],
+      date: [''],
+      age: [12],
+      category: ['category-2'],
+      tag: [''],
+      agree: [false],
+      gender : [''],
+      zone: ['']
+    });
   }
 
   // Obtener el validador de un form group
