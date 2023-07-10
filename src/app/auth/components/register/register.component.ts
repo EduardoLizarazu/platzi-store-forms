@@ -43,10 +43,33 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6), MyValidators.validPassword]],
       // No hace falta que tenga mas validaciones ya que eso lo va a hacer password
       confirmPassword: ['', [Validators.required]],
+      type: ['company', [Validators.required]],
+      companyName: ['', [Validators.required]],
     }, {
       // Recibe todo el formulario
       validators: MyValidators.matchPasswords
     });
+
+    // Validacion condicionada de acuerdo a cambio de UI
+    // Para que se actualice el valor de companyName cuando se cambie el valor de type
+    this.typeField.valueChanges
+    .subscribe(value => {
+      if (value === 'company') {
+        this.companyNameField.setValidators([Validators.required]);
+      } else {
+        // No existe validaciones
+        this.companyNameField.setValidators(null);
+      }
+      // Actualizar validaciones
+      this.companyNameField.updateValueAndValidity();
+    })
+  }
+
+  get typeField() {
+    return this.form.get('type');
+  }
+  get companyNameField() {
+    return this.form.get('companyName');
   }
 
 }
