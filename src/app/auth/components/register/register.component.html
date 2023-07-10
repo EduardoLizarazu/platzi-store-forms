@@ -30,7 +30,13 @@
         <div class="col-xs">
           <mat-form-field>
             <mat-label>Confirm Password</mat-label>
-            <input placeholder="password" formControlName="password" matInput type="password">
+            <input placeholder="password" formControlName="confirmPassword" matInput type="password">
+            <!-- Como es grupal le preguntamos al form si tiene el error -->
+            <div *ngIf="form.get('confirmPassword').touched && form.errors">
+              <mat-error *ngIf="form.hasError('match_password')">
+                No son igules
+              </mat-error>
+            </div>
           </mat-form-field>
         </div>
       </div>
