@@ -19,15 +19,17 @@
       </div>
       <div class="row">
         <div class="col-xs">
-          <mat-form-field>
-            <mat-label>Image</mat-label>
-            <input placeholder="Image" formControlName="image" matInput type="text">
+          <!-- Previsualizacion -->
+          <img *ngIf="imageField.value" [src]="imageField.value">
+          <!-- Angualar material no tiene para subir img, vamos a user tags de html -->
+          <!-- formControlName="image" ya no es requerido, ya lo hacemos programaticamente
+          en nuestra logica (setvalue) -->
+          <input (change)="uploadFile($event)" placeholder="Image" type="file">
             <div class="messages" *ngIf="imageField.touched && imageField.invalid">
               <mat-error *ngIf="imageField.hasError('required')">
                 Este campo es requerido
               </mat-error>
             </div>
-          </mat-form-field>
         </div>
       </div>
     </mat-card-content>

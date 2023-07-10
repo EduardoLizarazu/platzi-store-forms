@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormBuilder, FormGroup } from "@angular/forms";
+import { AngularFireStorage } from "@angular/fire/storage";
+import { Observable } from "rxjs";
+import { finalize } from "rxjs/operators";
 
 import { CategoriesService } from "./../../../../core/services/categories.service";
 
@@ -16,7 +19,8 @@ export class CategoryFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
-    private router: Router
+    private router: Router,
+    private storage: AngularFireStorage
   ) {
     this.buildForm();
   }
@@ -54,6 +58,27 @@ export class CategoryFormComponent implements OnInit {
         console.log(newCategory);
         this.router.navigate(['./admin/categories']);
       });
+  }
+
+  uploadFile(event) {
+    const image = event.target.files[0];
+    const name = 'category.png';
+    const ref = this.storage.ref(name);
+    const task = this.storage.upload(name, image);
+
+    task.snapshotChanges()
+      .pipe(
+        // Nos dice cuando finaliza de subir la img
+        finalize(() => {
+          const urlImage$ = ref.getDownloadURL();
+          urlImage$.subscribe(url => {
+            console.log(url);
+            // Para decirle a nuestro formulario que ya hay una imagen
+            this.imageField.setValue(url);
+          })
+        })
+      )
+      .subscribe();
   }
 
 }
