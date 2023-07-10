@@ -1,2 +1,23 @@
 <!-- Boton para ir a crear -->
 <a routerLink="create">Crear categoria</a>
+
+<!-- Listar todas las categorias -->
+<div class="categories" *ngIf="(categories$ | async) as categoryArray">
+  <mat-card *ngFor="let category of categoryArray" class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{ category.name }}</mat-card-title>
+      <mat-card-subtitle>{{ category.created_at | date}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="category.image" [alt]="category.name">
+    <mat-card-content>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem tenetur dolores nemo perferendis quod laudantium temporibus, id architecto ducimus odio magnam fugit! Quae similique sunt enim illo accusamus quis temporibus?
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">LIKE</button>
+      <button mat-stroked-button color="primary">SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
