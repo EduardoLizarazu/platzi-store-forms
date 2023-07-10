@@ -4,148 +4,146 @@ los campos -->
 
   <!-- Manejando múltiples FormsGroups -->
   <div formGroupName="fullName">
-    <mat-form-field appearance="fill">
-      <mat-label>Name: {{ nameField.value }}</mat-label>
-      <input matInput type="text" formControlName="name">
-      <mat-icon matSuffix *ngIf="isNameFieldValid">done</mat-icon>
-      <mat-icon matSuffix *ngIf="isNameFieldInvalid">close</mat-icon>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input type="text" formControlName="name" matInput>
+      <mat-icon matSuffix color="primary" *ngIf="isNameValid()">done</mat-icon>
+      <mat-icon matSuffix color="warn" *ngIf="isNameInvalid()">close</mat-icon>
     </mat-form-field>
-    <div class="messages" [class.active]="isNameFieldInvalid">
-      <mat-error *ngIf="nameField.hasError('required')">
-        Este campo es requerido
-      </mat-error>
-      <mat-error *ngIf="nameField.hasError('maxlength')">
-        debe tener maximo 10 c
-      </mat-error>
-      <mat-error *ngIf="nameField.hasError('pattern')">
-        No debe tener carac..
-      </mat-error>
+    <div class="messages" [class.active]="isNameInvalid()">
+      <mat-error *ngIf="name().hasError('required') && name().touched">Este campo es requerido</mat-error>
+      <mat-error *ngIf="name().hasError('maxlength')">El máximo son de 10 caracteres</mat-error>
+      <mat-error *ngIf="name().hasError('pattern')">El nombre no debe tener caracteres</mat-error>
     </div>
-    <p>
-      Last Name: {{ lastField.value }} {{ lastField.valid }}
-      <input type="text" formControlName="last" />
-    </p>
+
+    <mat-form-field>
+      <mat-label>Last</mat-label>
+      <input type="text" formControlName="last" matInput>
+      <mat-icon matSuffix color="primary" *ngIf="isLastValid()">done</mat-icon>
+      <mat-icon matSuffix color="warn" *ngIf="isLastInvalid()">close</mat-icon>
+    </mat-form-field>
+    <div class="messages" [class.active]="isLastInvalid()">
+      <mat-error *ngIf="last().hasError('required') && last().touched">Este campo es requerido</mat-error>
+      <mat-error *ngIf="last().hasError('maxlength')">El máximo son de 10 caracteres</mat-error>
+      <mat-error *ngIf="last().hasError('pattern')">El nombre no debe tener caracteres</mat-error>
+    </div>
   </div>
 
-  <p>
-    Email: {{ emailField.value }}
-    <input type="email" formControlName="email" />
-  </p>
-  <div class="messages" [class.active]="emailField.touched && emailField.invalid">
-    <p>
-      <strong *ngIf="emailField.hasError('required')">
-        Este campo es requerido
-      </strong>
-    </p>
-    <!-- Como el touched los estoy haciendo arriba, aqui ya no es necesario -->
-    <p>
-      <strong *ngIf="emailField.hasError('email')">
-        Este no es un email valido
-      </strong>
-    </p>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input type="email" formControlName="email" matInput>
+    <mat-icon matSuffix color="primary" *ngIf="isEmailValid()">done</mat-icon>
+    <mat-icon matSuffix color="warn" *ngIf="isEmailInvalid()">close</mat-icon>
+  </mat-form-field>
+  <div class="messages" [class.active]="isEmailInvalid()">
+    <mat-error *ngIf="email().hasError('required') && email().touched">Este campo es requerido</mat-error>
+    <mat-error *ngIf="email().hasError('email') && email().touched">Este no es un email válido</mat-error>
   </div>
 
-  <p>
-    Phone: {{ phoneField.value }}
-    <input type="tel" formControlName="phone" />
-  </p>
-  <div class="messages" [class.active]="phoneField.touched && phoneField.invalid">
-    <p>
-      <strong *ngIf="phoneField.touched && phoneField.hasError('required')">Este campo es requerido</strong>
-    </p>
+  <mat-form-field>
+    <mat-label>Phone</mat-label>
+    <input type="tel" formControlName="phone" matInput>
+    <mat-icon matSuffix color="primary" *ngIf="isPhoneValid()">done</mat-icon>
+    <mat-icon matSuffix color="warn" *ngIf="isPhoneInvalid()">close</mat-icon>
+  </mat-form-field>
+  <div class="messages" [class.active]="isPhoneInvalid()">
+    <mat-error *ngIf="phone().hasError('required') && phone().touched">Este campo es requerido</mat-error>
   </div>
 
-  <p>
-    Color: {{ colorField.value }}
-    <input type="color" formControlName="color" />
-  </p>
-  <p>
-    Date: {{ dateField.value }}
-    <input type="date" formControlName="date" />
-  </p>
-
-  <p>
-    Age: {{ ageField.value }}
-    <input type="number" formControlName="age" />
-  </p>
-  <div class="messages" [class.active]="ageField.touched && ageField.invalid">
-    <p>
-      <strong *ngIf="ageField.hasError('required')">
-        Este campo es requerido
-      </strong>
-    </p>
-    <p>
-      <strong *ngIf="ageField.hasError('min')">
-        Debe ser mayor de edad
-      </strong>
-    </p>
-    <p>
-      <strong *ngIf="ageField.hasError('max')">
-        Debe ser menor a 65 anos
-      </strong>
-    </p>
+  <mat-form-field>
+    <mat-label>Color</mat-label>
+    <input type="color" formControlName="color" matInput>
+    <mat-icon matSuffix color="primary" *ngIf="isColorValid()">done</mat-icon>
+    <mat-icon matSuffix color="warn" *ngIf="isColorInvalid()">close</mat-icon>
+  </mat-form-field>
+  <div class="messages" [class.active]="isColorInvalid()">
+    <mat-error *ngIf="color().hasError('required') && color().touched">Este campo es requerido</mat-error>
   </div>
 
-  <p>
-    Category: {{ categoryField.value }}
-    <select formControlName="category">
-      <option value="category-1">Category 1</option>
-      <option value="category-2">Category 2</option>
-      <option value="category-3">Category 3</option>
-      <option value="category-4">Category 4</option>
-    </select>
-  </p>
-  <p>
-    Tags: {{ tagField.value }}
-    <select formControlName="tag" multiple>
-      <option value="tag-1">Tag 1</option>
-      <option value="tag-2">Tag 2</option>
-      <option value="tag-3">Tag 3</option>
-      <option value="tag-4">Tag 4</option>
-    </select>
-  </p>
-
-  <p>
-    Agree: {{ agreeField.value }}
-    <input type="checkbox" formControlName="agree" />
-  </p>
-  <div class="messages" [class.active]="agreeField.touched && agreeField.invalid">
-    <p>
-      <strong *ngIf="agreeField.hasError('requiredtrue')">Tienes que aceptar los termininos y condiciones</strong>
-    </p>
+  <mat-form-field>
+    <mat-label>Date</mat-label>
+    <input matInput formControlName="date" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-icon matSuffix color="primary" *ngIf="isDateValid()">done</mat-icon>
+    <mat-icon matSuffix color="warn" *ngIf="isDateInvalid()">close</mat-icon>
+  </mat-form-field>
+  <div class="messages" [class.active]="isDateInvalid()">
+    <mat-error *ngIf="date().hasError('required') && date().touched">Este campo es requerido</mat-error>
   </div>
 
-  <p>
-    Gender: {{ genderField.value }}
-    <label>
-      <input name="gender" value="male" type="radio" formControlName="gender" />
-      Male
-    </label>
-    <label>
-      <input name="gender" value="female" type="radio" formControlName="gender" />
-      Female
-    </label>
-    <label>
-      <input name="gender" value="other" type="radio" formControlName="gender" />
-      Other
-    </label>
-  </p>
-  <p>
-    Zone: {{ zoneField.value }}
-    <label>
-      <input name="zone" value="zone-1" type="radio" formControlName="zone" />
-      Zona 1
-    </label>
-    <label>
-      <input name="zone" value="zone-2" type="radio" formControlName="zone" />
-      Zona 2
-    </label>
-    <label>
-      <input name="zone" value="zone-3" type="radio" formControlName="zone" />
-      Zona 3
-    </label>
-  </p>
-  <p>
-    <button [disabled]="form.invalid" type="submit">Enviar</button>
-  </p>
+  <mat-form-field>
+    <mat-label>Age</mat-label>
+    <input type="number" formControlName="age" matInput>
+    <mat-icon matSuffix color="primary" *ngIf="isAgeValid()">done</mat-icon>
+    <mat-icon matSuffix color="warn" *ngIf="isAgeInvalid()">close</mat-icon>
+  </mat-form-field>
+  <div class="messages" [class.active]="isAgeInvalid()">
+    <mat-error *ngIf="age().hasError('required') && age().touched">Este campo es requerido</mat-error>
+    <mat-error *ngIf="age().hasError('min') && age().touched">Debe ser mayor mayot de edad</mat-error>
+    <mat-error *ngIf="age().hasError('max') && age().touched">Debe estar vivo</mat-error>
+  </div>
+
+  <mat-form-field>
+    <mat-label>Url</mat-label>
+    <input type="url" formControlName="url" matInput>
+    <mat-icon matSuffix color="primary" *ngIf="isUrlValid()">done</mat-icon>
+    <mat-icon matSuffix color="warn" *ngIf="isUrlInvalid()">close</mat-icon>
+  </mat-form-field>
+  <div class="messages" [class.active]="isUrlInvalid()">
+    <mat-error *ngIf="url().hasError('required') && url().touched">Este campo es requerido</mat-error>
+  </div>
+
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category">
+      <mat-option value="cat1-db 1">category-1 showed</mat-option>
+      <mat-option value="cat2-db 2">category-2 showed</mat-option>
+      <mat-option value="cat3-db 3">category-3 showed</mat-option>
+      <mat-option value="cat4-db 4">category-4 showed</mat-option>
+    </mat-select>
+    <mat-icon matSuffix color="primary" *ngIf="isCategoryValid()">done</mat-icon>
+    <mat-icon matSuffix color="warn" *ngIf="isCategoryInvalid()">close</mat-icon>
+  </mat-form-field>
+  <div class="messages" [class.active]="isCategoryInvalid()">
+    <mat-error *ngIf="category().hasError('required') && category().touched">Este campo es requerido</mat-error>
+  </div>
+
+  <mat-form-field>
+    <mat-label>Tag</mat-label>
+    <mat-select formControlName="tag" multiple>
+      <mat-option value="tag-db 1">tag-1 showed</mat-option>
+      <mat-option value="tag-db 2">tag-2 showed</mat-option>
+      <mat-option value="tag-db 3">tag-3 showed</mat-option>
+      <mat-option value="tag-db 4">tag-4 showed</mat-option>
+    </mat-select>
+    <mat-icon matSuffix color="primary" *ngIf="isTagValid()">done</mat-icon>
+    <mat-icon matSuffix color="warn" *ngIf="isTagInvalid()">close</mat-icon>
+  </mat-form-field>
+
+  <mat-checkbox id="agree" formControlName="agree">Agree</mat-checkbox>
+  <div class="messages" [class.active]="isAgreeInvalid()">
+    <mat-error *ngIf="agree().hasError('required') && agree().touched">debe aceptar los términos y condiciones
+    </mat-error>
+  </div>
+  <mat-radio-group formControlName="gender">
+    <mat-radio-button value="Masculino">Masculino</mat-radio-button>
+    <mat-radio-button value="Femenino">Femenino</mat-radio-button>
+    <mat-radio-button value="Otro">Otro</mat-radio-button>
+  </mat-radio-group>
+  <div class="messages" [class.active]="isGenderInvalid()">
+    <strong *ngIf="gender().hasError('required') && gender().touched">Este campo es requerido</strong>
+  </div>
+
+  <mat-radio-group formControlName="zone">
+    <mat-radio-button value="zona-1">zona-1</mat-radio-button>
+    <mat-radio-button value="zona-2">zona-2</mat-radio-button>
+    <mat-radio-button value="zona-3">zona-3</mat-radio-button>
+    <mat-radio-button value="zona-4">zona-4</mat-radio-button>
+  </mat-radio-group>
+  <div class="messa ges" [class.active]="isZoneInvalid()">
+    <strong *ngIf="zone().hasError('required') && zone().touched">Este campo es requerido</strong>
+  </div>
+
+  <button mat-raised-button type="submit" color="primary">Enviar</button>
 </form>
